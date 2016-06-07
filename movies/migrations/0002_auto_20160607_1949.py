@@ -12,13 +12,22 @@ def create_data(apps, schema_editor):
     Rating = apps.get_model("movies", "Rating")
 
     with open("u.item", encoding="latin1") as infile:
-        csv_file = infile.read()
+        csv_item = csv.reader(infile, delimiter='\t')
 
-    csv_file = csv.reader(open(csv_filepathname), delimiter=',', quotechar='"')
-
-    for row in dataReader:
-    
-
+    for row in csv_item:
+        Movie.objects.create(movie_id="movie id", movie_title="movie title", release_date="release date",
+                             video_release_date="video release date", IMDb_URL="IMDB url", unknown="unknown",
+                             action="Action", adventure="Adventure", animation="Animation", childrens="Children's",
+                             comedy="Comedy", crime="Crime", documentary="Documentary", drama="Drama", fantasy="Fantasy",
+                             film_noir="Film-Noir", horror="Horror", musical="Musical", mystery="Mystery",
+                             romance="Romance", sci_fi="Sci-Fi", thriller="Thriller", war="War", western="Western")
+'''
+movie id | movie title | release date | video release date |
+              IMDb URL | unknown | Action | Adventure | Animation |
+              Children's | Comedy | Crime | Documentary | Drama | Fantasy |
+              Film-Noir | Horror | Musical | Mystery | Romance | Sci-Fi |
+              Thriller | War | Western |
+'''
     raise Exception("yay")
 
 class Migration(migrations.Migration):
