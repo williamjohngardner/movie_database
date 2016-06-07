@@ -6,10 +6,8 @@ from django.db import migrations
 import csv
 
 
-def create_data(apps, schema_editor):
+def movie_data(apps, schema_editor):
     Movie = apps.get_model("movies", "Movie")
-    Rater = apps.get_model("movies", "Rater")
-    Rating = apps.get_model("movies", "Rating")
 
     with open("u.item", encoding="latin1") as infile:
         csv_item = csv.reader(infile, delimiter='\t')
@@ -21,14 +19,41 @@ def create_data(apps, schema_editor):
                              comedy="Comedy", crime="Crime", documentary="Documentary", drama="Drama", fantasy="Fantasy",
                              film_noir="Film-Noir", horror="Horror", musical="Musical", mystery="Mystery",
                              romance="Romance", sci_fi="Sci-Fi", thriller="Thriller", war="War", western="Western")
-'''
-movie id | movie title | release date | video release date |
-              IMDb URL | unknown | Action | Adventure | Animation |
-              Children's | Comedy | Crime | Documentary | Drama | Fantasy |
-              Film-Noir | Horror | Musical | Mystery | Romance | Sci-Fi |
-              Thriller | War | Western |
-'''
-    raise Exception("yay")
+
+    raise Exception("Movie yay!")
+
+
+def rater_data(apps, schema_editor):
+    Rater = apps.get_model("movies", "Rater")
+
+    with open("u.user") as infile:
+        csv_item = csv.reader(infile, delimiter='\t')
+
+    for row in csv_item:
+        Rater.objects.create(user_id="user id", age="age", gender="gender", occupation="occupation", zip_code="zip code")
+
+    raise Exception("Rater yay!")
+
+
+def rating_data(apps, schema_editor):
+    Rating = apps.get_model("movies", "Rating")
+    Movie = apps.get_model("movies", "Movie")
+    Rater = apps.get_model("movies", "Rater")
+
+
+
+    with open("u.data") as infile:
+        csv_item = csv.reader(infile, delimiter='\t')
+
+    movie_id = Movie.objects.create([0])
+    rater_id = Rater.objects.create([0])
+
+    for row in csv_item:
+        Rating.objects.create(user_id="user id", item_id="item id", rating="rating", timestamp="timestamp",
+                              movie_id=movie_id, rater_id=rater_id )
+
+    raise Exception("Rating yay!")
+
 
 class Migration(migrations.Migration):
 
@@ -37,4 +62,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.RunPython(movie_data), migrations.RunPython(rating_data), migrations.RunPython(rater_data)
     ]
