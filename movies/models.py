@@ -4,7 +4,7 @@ from django.db import models
 class Movie(models.Model):
     movie_id = models.IntegerField()
     movie_title = models.CharField(max_length=60)
-    release_date = models.IntegerField()
+    release_date = models.CharField(max_length=15)
     video_release_date = models.CharField(max_length=10, default="")
     IMDb_URL = models.URLField()
     unknown = models.BooleanField()
