@@ -5,6 +5,7 @@ from django.db import migrations
 from movie_database.worker_function import movie_data
 from movie_database.worker_function import rater_data
 
+
 class Migration(migrations.Migration):
 
     dependencies = [
