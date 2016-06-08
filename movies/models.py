@@ -7,25 +7,28 @@ class Movie(models.Model):
     release_date = models.CharField(max_length=15)
     video_release_date = models.CharField(max_length=10, default="")
     IMDb_URL = models.URLField()
-    unknown = models.BooleanField()
-    action = models.BooleanField()
-    adventure = models.BooleanField()
-    animation = models.BooleanField()
-    childrens = models.BooleanField()
-    comedy = models.BooleanField()
-    crime = models.BooleanField()
-    documentary = models.BooleanField()
-    drama = models.BooleanField()
-    fantasy = models.BooleanField()
-    film_noir = models.BooleanField()
-    horror = models.BooleanField()
-    musical = models.BooleanField()
-    mystery = models.BooleanField()
-    romance = models.BooleanField()
-    sci_fi = models.BooleanField()
-    thriller = models.BooleanField()
-    war = models.BooleanField()
-    western = models.BooleanField()
+    unknown = models.IntegerField()
+    action = models.IntegerField()
+    adventure = models.IntegerField()
+    animation = models.IntegerField()
+    childrens = models.IntegerField()
+    comedy = models.IntegerField()
+    crime = models.IntegerField()
+    documentary = models.IntegerField()
+    drama = models.IntegerField()
+    fantasy = models.IntegerField()
+    film_noir = models.IntegerField()
+    horror = models.IntegerField()
+    musical = models.IntegerField()
+    mystery = models.IntegerField()
+    romance = models.IntegerField()
+    sci_fi = models.IntegerField()
+    thriller = models.IntegerField()
+    war = models.IntegerField()
+    western = models.IntegerField()
+
+    def __str__(self):
+        return self.movie_title
 
 
 class Rater(models.Model):
@@ -34,6 +37,9 @@ class Rater(models.Model):
     gender = models.CharField(max_length=1)
     occupation = models.CharField(max_length=30)
     zip_code = models.CharField(max_length=6)
+
+    def __str__(self):
+        return str(self.user_id)
 
 
 class Rating(models.Model):
@@ -44,3 +50,5 @@ class Rating(models.Model):
     movie_id = models.ForeignKey(Movie)
     rater_id = models.ForeignKey(Rater)
 
+    def __str__(self):
+        return str(self.rating)
